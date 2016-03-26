@@ -110,30 +110,30 @@ Disassembly of section .text:
 
 000000a0 <_Z10setStoppedv>:
   a0:	8b b1       	in	r24, 0x0b	; 11
-  a2:	87 6f       	ori	r24, 0xF7	; 247
+  a2:	8f 6e       	ori	r24, 0xEF	; 239
   a4:	8b b9       	out	0x0b, r24	; 11
-  a6:	5b 9a       	sbi	0x0b, 3	; 11
+  a6:	5d 9a       	sbi	0x0b, 5	; 11
   a8:	08 95       	ret
 
 000000aa <_Z4setRv>:
-  aa:	5b 9a       	sbi	0x0b, 3	; 11
-  ac:	5b 98       	cbi	0x0b, 3	; 11
+  aa:	5c 9a       	sbi	0x0b, 4	; 11
+  ac:	5d 98       	cbi	0x0b, 5	; 11
   ae:	08 95       	ret
 
 000000b0 <_Z4setLv>:
-  b0:	5b 98       	cbi	0x0b, 3	; 11
-  b2:	5b 9a       	sbi	0x0b, 3	; 11
+  b0:	5c 98       	cbi	0x0b, 4	; 11
+  b2:	5d 9a       	sbi	0x0b, 5	; 11
   b4:	08 95       	ret
 
 000000b6 <_Z7setDeadv>:
-  b6:	5b 98       	cbi	0x0b, 3	; 11
-  b8:	5b 98       	cbi	0x0b, 3	; 11
+  b6:	5c 98       	cbi	0x0b, 4	; 11
+  b8:	5d 98       	cbi	0x0b, 5	; 11
   ba:	08 95       	ret
 
 000000bc <_Z7turnPinj>:
   bc:	88 0f       	add	r24, r24
   be:	99 1f       	adc	r25, r25
-  c0:	38 e0       	ldi	r19, 0x08	; 8
+  c0:	30 e1       	ldi	r19, 0x10	; 16
   c2:	00 97       	sbiw	r24, 0x00	; 0
   c4:	59 f0       	breq	.+22     	; 0xdc <_Z7turnPinj+0x20>
   c6:	2b b1       	in	r18, 0x0b	; 11
@@ -308,10 +308,10 @@ Disassembly of section .text:
  22c:	5a 98       	cbi	0x0b, 2	; 11
  22e:	53 98       	cbi	0x0a, 3	; 10
  230:	5b 98       	cbi	0x0b, 3	; 11
- 232:	53 9a       	sbi	0x0a, 3	; 10
- 234:	5b 9a       	sbi	0x0b, 3	; 11
- 236:	53 9a       	sbi	0x0a, 3	; 10
- 238:	5b 9a       	sbi	0x0b, 3	; 11
+ 232:	54 9a       	sbi	0x0a, 4	; 10
+ 234:	5c 9a       	sbi	0x0b, 4	; 11
+ 236:	55 9a       	sbi	0x0a, 5	; 10
+ 238:	5d 9a       	sbi	0x0b, 5	; 11
  23a:	8f e0       	ldi	r24, 0x0F	; 15
  23c:	80 93 69 00 	sts	0x0069, r24
  240:	83 e0       	ldi	r24, 0x03	; 3
