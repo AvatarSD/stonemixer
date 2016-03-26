@@ -59,7 +59,7 @@ all: stonemixer.elf secondary-outputs
 stonemixer.elf: $(OBJS) $(USER_OBJS)
 	@echo 'Building target: $@'
 	@echo 'Invoking: AVR C++ Linker'
-	avr-g++ -Wl,-Map,stonemixer.map,--cref -mrelax -Wl,--gc-sections -mmcu=atmega16 -o "stonemixer.elf" $(OBJS) $(USER_OBJS) $(LIBS)
+	avr-g++ -Wl,-Map,stonemixer.map,--cref -mrelax -Wl,--gc-sections -mmcu=atmega328p -o "stonemixer.elf" $(OBJS) $(USER_OBJS) $(LIBS)
 	@echo 'Finished building target: $@'
 	@echo ' '
 
@@ -71,7 +71,7 @@ stonemixer.lss: stonemixer.elf
 
 sizedummy: stonemixer.elf
 	@echo 'Invoking: Print Size'
-	-avr-size --format=avr --mcu=atmega16 stonemixer.elf
+	-avr-size --format=avr --mcu=atmega328p stonemixer.elf
 	@echo 'Finished building: $@'
 	@echo ' '
 
