@@ -82,31 +82,38 @@ ISR(TIMER1_CAPT_vect)
 	{
 		sec = 0;
 
-		if (periodLastTime == 0)
-			if (lastErr)
-				setDead();
-			else
-				setStopped();
-		else
+		if (periodLastTime != 0)
+//		{
+//			if (lastErr)
+//				setDead();
+//			else
+//				setStopped();
+//		}
+//		else
 		{
 			uint16_t checkCount = (PERIOD * 10) / periodLastTime;
 			if (checkCount >= 10)
 				turnPin(checkCount);
-
+			periodLastTime = 0;
 		}
 	}
 
 	if (sensorTime <= PERIOD)
 		sensorTime++;
 	else
-		setStopped();
+	{
+		if (lastErr)
+			setDead();
+		else
+			setStopped();
+	}
 }
 
 volatile bool err = false;
 
 ISR(INT0_vect)
 {
-	if ((INT1_PIN & _BV(INT1_NUM)))
+	if (INT1_PIN & _BV(INT1_NUM))
 	{
 		doCheckpoint();
 		if (err)
@@ -126,7 +133,7 @@ ISR(INT0_vect)
 
 ISR(INT1_vect)
 {
-	if ((INT0_PIN & _BV(INT0_NUM)))
+	if (INT0_PIN & _BV(INT0_NUM))
 	{
 		doCheckpoint();
 		if (err)
