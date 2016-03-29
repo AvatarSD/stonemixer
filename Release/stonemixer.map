@@ -188,7 +188,7 @@ END GROUP
 .rela.plt
  *(.rela.plt)
 
-.text           0x0000000000000000      0x2ae
+.text           0x0000000000000000      0x302
  *(.vectors)
  .vectors       0x0000000000000000       0x68 /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr5/crtm328p.o
                 0x0000000000000000                __vectors
@@ -289,25 +289,25 @@ END GROUP
                 0x00000000000000de       0xb4 ./src/main.o
                 0x00000000000000de                __vector_10
  .text.__vector_1
-                0x0000000000000192       0x4c ./src/main.o
+                0x0000000000000192       0x76 ./src/main.o
                 0x0000000000000192                __vector_1
  .text.__vector_2
-                0x00000000000001de       0x4c ./src/main.o
-                0x00000000000001de                __vector_2
+                0x0000000000000208       0x76 ./src/main.o
+                0x0000000000000208                __vector_2
  .text._Z4initv
-                0x000000000000022a       0x52 ./src/main.o
-                0x000000000000022a                _Z4initv
+                0x000000000000027e       0x52 ./src/main.o
+                0x000000000000027e                _Z4initv
  .text.startup.main
-                0x000000000000027c        0x6 ./src/main.o
-                0x000000000000027c                main
+                0x00000000000002d0        0x6 ./src/main.o
+                0x00000000000002d0                main
  .text.libgcc.div
-                0x0000000000000282       0x28 /usr/lib/gcc/avr/4.8.1/avr5/libgcc.a(_udivmodhi4.o)
-                0x0000000000000282                __udivmodhi4
-                0x00000000000002aa                . = ALIGN (0x2)
+                0x00000000000002d6       0x28 /usr/lib/gcc/avr/4.8.1/avr5/libgcc.a(_udivmodhi4.o)
+                0x00000000000002d6                __udivmodhi4
+                0x00000000000002fe                . = ALIGN (0x2)
  *(.fini9)
- .fini9         0x00000000000002aa        0x0 /usr/lib/gcc/avr/4.8.1/avr5/libgcc.a(_exit.o)
-                0x00000000000002aa                exit
-                0x00000000000002aa                _exit
+ .fini9         0x00000000000002fe        0x0 /usr/lib/gcc/avr/4.8.1/avr5/libgcc.a(_exit.o)
+                0x00000000000002fe                exit
+                0x00000000000002fe                _exit
  *(.fini9)
  *(.fini8)
  *(.fini8)
@@ -326,11 +326,11 @@ END GROUP
  *(.fini1)
  *(.fini1)
  *(.fini0)
- .fini0         0x00000000000002aa        0x4 /usr/lib/gcc/avr/4.8.1/avr5/libgcc.a(_exit.o)
+ .fini0         0x00000000000002fe        0x4 /usr/lib/gcc/avr/4.8.1/avr5/libgcc.a(_exit.o)
  *(.fini0)
-                0x00000000000002ae                _etext = .
+                0x0000000000000302                _etext = .
 
-.data           0x0000000000800100        0x2 load address 0x00000000000002ae
+.data           0x0000000000800100        0x2 load address 0x0000000000000302
                 0x0000000000800100                PROVIDE (__data_start, .)
  *(.data)
  .data          0x0000000000800100        0x0 /usr/lib/gcc/avr/4.8.1/../../../avr/lib/avr5/crtm328p.o
@@ -363,8 +363,8 @@ END GROUP
                 0x0000000000800105                sensorTime
  *(COMMON)
                 0x0000000000800107                PROVIDE (__bss_end, .)
-                0x00000000000002ae                __data_load_start = LOADADDR (.data)
-                0x00000000000002b0                __data_load_end = (__data_load_start + SIZEOF (.data))
+                0x0000000000000302                __data_load_start = LOADADDR (.data)
+                0x0000000000000304                __data_load_end = (__data_load_start + SIZEOF (.data))
 
 .noinit         0x0000000000800107        0x0
                 0x0000000000800107                PROVIDE (__noinit_start, .)

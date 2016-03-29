@@ -14,6 +14,7 @@ CPP_SRCS :=
 S_UPPER_SRCS := 
 O_SRCS := 
 C_UPPER_DEPS := 
+AVRDUDEDUMMY := 
 S_DEPS := 
 LSS := 
 C_DEPS := 

@@ -57,6 +57,9 @@ stonemixer.eep \
 SIZEDUMMY += \
 sizedummy \
 
+AVRDUDEDUMMY += \
+avrdudedummy \
+
 
 # All Target
 all: stonemixer.elf secondary-outputs
@@ -93,12 +96,18 @@ sizedummy: stonemixer.elf
 	@echo 'Finished building: $@'
 	@echo ' '
 
+avrdudedummy: stonemixer.elf
+	@echo 'Invoking: AVRDude'
+	/usr/bin/avrdude -pm328p -carduino -P/dev/ttyUSB0 -b57600 -D -Uflash:w:stonemixer.hex:a
+	@echo 'Finished building: $@'
+	@echo ' '
+
 # Other Targets
 clean:
-	-$(RM) $(C_UPPER_DEPS)$(S_DEPS)$(LSS)$(C_DEPS)$(FLASH_IMAGE)$(CC_DEPS)$(ELFS)$(C++_DEPS)$(OBJS)$(CXX_DEPS)$(ASM_DEPS)$(EEPROM_IMAGE)$(SIZEDUMMY)$(S_UPPER_DEPS)$(CPP_DEPS) stonemixer.elf
+	-$(RM) $(C_UPPER_DEPS)$(AVRDUDEDUMMY)$(S_DEPS)$(LSS)$(C_DEPS)$(FLASH_IMAGE)$(CC_DEPS)$(ELFS)$(C++_DEPS)$(OBJS)$(CXX_DEPS)$(ASM_DEPS)$(EEPROM_IMAGE)$(SIZEDUMMY)$(S_UPPER_DEPS)$(CPP_DEPS) stonemixer.elf
 	-@echo ' '
 
-secondary-outputs: $(LSS) $(FLASH_IMAGE) $(EEPROM_IMAGE) $(SIZEDUMMY)
+secondary-outputs: $(LSS) $(FLASH_IMAGE) $(EEPROM_IMAGE) $(SIZEDUMMY) $(AVRDUDEDUMMY)
 
 .PHONY: all clean dependents
 .SECONDARY:

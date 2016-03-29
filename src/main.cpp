@@ -22,12 +22,12 @@
 #define OUT0_DDR DDRD
 #define OUT0_PRT PORTD
 #define OUT0_PIN PIND
-#define OUT0_NUM 3
+#define OUT0_NUM 4
 
 #define OUT1_DDR DDRD
 #define OUT1_PRT PORTD
 #define OUT1_PIN PIND
-#define OUT1_NUM 3
+#define OUT1_NUM 5
 
 #define PERIOD 	 60
 
@@ -102,7 +102,7 @@ ISR(TIMER1_CAPT_vect)
 
 ISR(INT0_vect)
 {
-	if (!INT1_PIN & _BV(INT1_NUM))
+	if (!(INT1_PIN & _BV(INT1_NUM)))
 	{
 		doCheckpoint();
 		if (err)
@@ -118,7 +118,7 @@ ISR(INT0_vect)
 
 ISR(INT1_vect)
 {
-	if (!INT0_PIN & _BV(INT0_NUM))
+	if (!(INT0_PIN & _BV(INT0_NUM)))
 	{
 		doCheckpoint();
 		if (err)
