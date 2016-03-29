@@ -113,7 +113,7 @@ volatile bool err = false;
 
 ISR(INT0_vect)
 {
-	if (INT1_PIN & _BV(INT1_NUM))
+	if (!(INT1_PIN & _BV(INT1_NUM)))
 	{
 		doCheckpoint();
 		if (err)
@@ -133,7 +133,7 @@ ISR(INT0_vect)
 
 ISR(INT1_vect)
 {
-	if (INT0_PIN & _BV(INT0_NUM))
+	if (!(INT0_PIN & _BV(INT0_NUM)))
 	{
 		doCheckpoint();
 		if (err)
