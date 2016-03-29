@@ -33,7 +33,7 @@
 
 void setStopped()
 {
-	OUT0_PRT |= ~_BV(OUT0_NUM);
+	OUT0_PRT |= _BV(OUT0_NUM);
 	OUT1_PRT |= _BV(OUT1_NUM);
 }
 
@@ -66,8 +66,8 @@ void turnPin(uint16_t count)
 }
 
 volatile uint16_t sensorTime = 0;
-volatile bool err = false;
 volatile uint16_t periodLastTime = 0;
+volatile bool lastErr = false;
 
 inline void doCheckpoint()
 {
@@ -82,16 +82,18 @@ ISR(TIMER1_CAPT_vect)
 	{
 		sec = 0;
 
-		if (periodLastTime != 0)
+		if (periodLastTime == 0)
+			if (lastErr)
+				setDead();
+			else
+				setStopped();
+		else
 		{
 			uint16_t checkCount = (PERIOD * 10) / periodLastTime;
 			if (checkCount >= 10)
 				turnPin(checkCount);
-			else
-				setStopped();
+
 		}
-		else
-			setDead();
 	}
 
 	if (sensorTime <= PERIOD)
@@ -100,34 +102,44 @@ ISR(TIMER1_CAPT_vect)
 		setStopped();
 }
 
+volatile bool err = false;
+
 ISR(INT0_vect)
 {
-	if (!(INT1_PIN & _BV(INT1_NUM)))
+	if ((INT1_PIN & _BV(INT1_NUM)))
 	{
 		doCheckpoint();
 		if (err)
+		{
+			lastErr = true;
 			setDead();
+		}
 		err = true;
 	}
 	else
 	{
 		err = false;
+		lastErr = false;
 		setR();
 	}
 }
 
 ISR(INT1_vect)
 {
-	if (!(INT0_PIN & _BV(INT0_NUM)))
+	if ((INT0_PIN & _BV(INT0_NUM)))
 	{
 		doCheckpoint();
 		if (err)
+		{
+			lastErr = true;
 			setDead();
+		}
 		err = true;
 	}
 	else
 	{
 		err = false;
+		lastErr = false;
 		setL();
 	}
 }
@@ -143,9 +155,9 @@ void init()
 	OUT1_DDR |= _BV(OUT1_NUM);
 	OUT1_PRT |= _BV(OUT1_NUM);
 
-	EICRA = (1 << ISC11) | (1 << ISC10) | (1 << ISC01) | (1 << ISC00);
+	EICRA = (1 << ISC11) | (0 << ISC10) | (1 << ISC01) | (0 << ISC00);
 	EIMSK = (1 << INT1) | (1 << INT0);
-	EIFR = (1 << INTF1) | (1 << INTF0);
+	//EIFR = (1 << INTF1) | (1 << INTF0);
 
 	TCCR1A = (0 << COM1A1) | (0 << COM1A0) | (0 << COM1B1) | (0 << COM1B0)
 			| (0 << WGM11) | (0 << WGM10);
